@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Row, Col, Space, Input, Button, Card, Form } from 'antd';
-
+import { Row, Col, Space, Input, Button, Card, Form, Table } from 'antd';
+import './App.css';
 function Item(props) {
   const {
     index,
@@ -67,10 +67,34 @@ function Item(props) {
     } else {
       return (
         <>
-          <div>ID: {index}</div>
-          <div>Name: {name}</div>
-          <div>Age: {age}</div>
-          <div>Salary: {salary.toLocaleString()}</div>
+          <table>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Salary</th>
+            </tr>
+            <tr>
+              <td>{index}</td>
+              <td>{name}</td>
+              <td>{age}</td>
+              <td>{salary.toLocaleString()}</td>
+            </tr>
+          </table>
+            
+            {!isEdit && (
+            <Button type="primary" onClick={() => setIsEdit(true)}
+              style={{width: 100,
+                margin: "20px 10px 0px 300px"
+              }}>Edit</Button>
+          )}
+            <Button danger type="primary" danger onClick={() => handleDeleteUser(index)}
+            style={{width: 100,
+              margin: "20px 100px 0px 0px"
+            }}>
+              Delete
+            </Button>
+
         </>
       )
     }
@@ -79,19 +103,7 @@ function Item(props) {
   return (
     <Card
       size="small"
-      extra={(
-        <Space>
-          {!isEdit && (
-            <Button type="link" onClick={() => setIsEdit(true)}>
-              Edit
-            </Button>
-          )}
-            <Button type="link" danger onClick={() => handleDeleteUser(index)}>
-              Delete
-            </Button>
-
-        </Space>
-      )}
+      
       style={{ marginTop: 24 }}
     >
       {renderUser()}
